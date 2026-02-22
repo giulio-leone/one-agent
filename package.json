@@ -19,9 +19,8 @@
       "require": "./dist/framework/index.cjs"
     },
     "./api": {
-      "types": "./dist/framework/api.d.ts",
-      "import": "./dist/framework/api.js",
-      "require": "./dist/framework/api.cjs"
+      "types": "./src/framework/api.ts",
+      "default": "./src/framework/api.ts"
     }
   },
   "files": [
@@ -44,12 +43,10 @@
   "dependencies": {
     "@ai-sdk/anthropic": "3.0.39",
     "@ai-sdk/openai": "3.0.26",
-    "@giulio-leone/constants": "*",
-    "@giulio-leone/lib-ai": "*",
-    "@giulio-leone/schemas": "*",
-    "@giulio-leone/types": "*",
-    "@giulio-leone/types-ai": "*",
-    "@giulio-leone/types-workout": "*",
+    "@giulio-leone/constants": "workspace:*",
+    "@giulio-leone/lib-ai": "workspace:*",
+    "@giulio-leone/schemas": "workspace:*",
+    "@giulio-leone/types": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.11.0",
     "@openrouter/ai-sdk-provider": "6.0.0-alpha.1",
     "@workflow/ai": "4.0.1-beta.44",
@@ -64,10 +61,10 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@giulio-leone/lib-flight": "*",
-    "@giulio-leone/lib-nutrition": "*",
-    "@giulio-leone/one-workout": "*",
-    "@giulio-leone/oneagenda-core": "*",
+    "@giulio-leone/one-flight": "workspace:*",
+    "@giulio-leone/one-nutrition": "workspace:*",
+    "@giulio-leone/one-workout": "workspace:*",
+    "@giulio-leone/oneagenda-core": "workspace:*",
     "@prisma/client": "^7.2.0",
     "@workflow/world-postgres": "4.1.0-beta.27",
     "zod": "^4.3.5"
@@ -76,10 +73,10 @@
     "@workflow/world-postgres": {
       "optional": true
     },
-    "@giulio-leone/lib-flight": {
+    "@giulio-leone/one-flight": {
       "optional": true
     },
-    "@giulio-leone/lib-nutrition": {
+    "@giulio-leone/one-nutrition": {
       "optional": true
     },
     "@giulio-leone/one-workout": {
