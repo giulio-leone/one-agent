@@ -19,8 +19,8 @@ import {
   AIProviderConfigService,
   buildProviderOptions,
   type ProviderName,
-} from '@onecoach/lib-ai';
-import { resolveProviderFromModelId } from '@onecoach/types-ai';
+} from '@giulio-leone/lib-ai';
+import { resolveProviderFromModelId } from '@giulio-leone/types-ai';
 import type { AgentManifest, Context, ExecutionResult, ExecutionMode } from './types';
 import { OAUTH_PROVIDERS } from './types';
 import { connectToMCPServers, mcpToolsToAiSdk } from './mcp';
@@ -91,9 +91,9 @@ export async function executeWorker<TOutput = unknown>(
     }
 
     // Gemini CLI requires async model creation due to dynamic imports
-    const { createModelAsync } = await import('@onecoach/lib-ai');
+    const { createModelAsync } = await import('@giulio-leone/lib-ai');
     const model = await createModelAsync(
-      modelConfig as import('@onecoach/lib-ai').ModelConfig,
+      modelConfig as import('@giulio-leone/lib-ai').ModelConfig,
       apiKey ?? '',
       manifest.config.temperature
     );

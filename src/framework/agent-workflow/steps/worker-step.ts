@@ -39,9 +39,9 @@ let _cachedModules: {
   mcpToolsToAiSdk: typeof import('../../mcp').mcpToolsToAiSdk;
   getAgentTools: typeof import('../../registry').getAgentTools;
   PROGRESS_PROMPT_INSTRUCTIONS: typeof import('../../types').PROGRESS_PROMPT_INSTRUCTIONS;
-  getModelByTier: typeof import('@onecoach/lib-ai').getModelByTier;
-  AIProviderConfigService: typeof import('@onecoach/lib-ai').AIProviderConfigService;
-  createModelAsync: typeof import('@onecoach/lib-ai').createModelAsync;
+  getModelByTier: typeof import('@giulio-leone/lib-ai').getModelByTier;
+  AIProviderConfigService: typeof import('@giulio-leone/lib-ai').AIProviderConfigService;
+  createModelAsync: typeof import('@giulio-leone/lib-ai').createModelAsync;
 } | null = null;
 
 /**
@@ -57,7 +57,7 @@ async function getCachedModules() {
     import('../../mcp'),
     import('../../registry'),
     import('../../types'),
-    import('@onecoach/lib-ai'),
+    import('@giulio-leone/lib-ai'),
   ]);
 
   _cachedModules = {
@@ -236,7 +236,7 @@ export async function executeWorkerStep(
       modelConfig.provider as (typeof OAUTH_PROVIDERS)[number]
     );
     const apiKey = await AIProviderConfigService.getApiKey(
-      modelConfig.provider as import('@onecoach/lib-ai').ProviderName
+      modelConfig.provider as import('@giulio-leone/lib-ai').ProviderName
     );
 
     if (!apiKey && !isOAuthProvider) {
@@ -245,7 +245,7 @@ export async function executeWorkerStep(
 
     // Create model
     const model = await createModelAsync(
-      modelConfig as import('@onecoach/lib-ai').ModelConfig,
+      modelConfig as import('@giulio-leone/lib-ai').ModelConfig,
       apiKey ?? '',
       manifest.config.temperature
     );

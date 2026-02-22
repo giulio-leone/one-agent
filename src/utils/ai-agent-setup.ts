@@ -9,11 +9,11 @@
  * Principi: KISS, SOLID (Single Responsibility), DRY
  */
 
-import { getModelByTier } from '@onecoach/lib-ai';
-import { createAIProvider } from '@onecoach/lib-ai';
+import { getModelByTier } from '@giulio-leone/lib-ai';
+import { createAIProvider } from '@giulio-leone/lib-ai';
 import { createCostCalculator } from '../core/CostCalculator';
 import type { IAIProvider, ICostCalculator } from '../core/types';
-import { TOKEN_LIMITS } from '@onecoach/constants';
+import { TOKEN_LIMITS } from '@giulio-leone/constants';
 
 export interface AIAgentConfig {
   provider: IAIProvider;
@@ -48,7 +48,7 @@ export async function createAIAgentConfig(
   // Get model configuration
   const modelConfig = await getModelByTier(modelTier);
   // Import dinamico per evitare che venga incluso nel bundle client
-  const { AIProviderConfigService } = await import('@onecoach/lib-ai');
+  const { AIProviderConfigService } = await import('@giulio-leone/lib-ai');
   const apiKey = await AIProviderConfigService.getApiKey(modelConfig.provider);
 
   if (!apiKey) {

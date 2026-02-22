@@ -21,7 +21,7 @@
  *
  * // Durable execution with streaming (v4.1)
  * // Use createAgentDurableResponse() in API routes for SSE streaming
- * import { createAgentDurableResponse } from '@onecoach/one-agent/api';
+ * import { createAgentDurableResponse } from '@giulio-leone/one-agent/api';
  */
 
 // ==================== ENGINE ====================

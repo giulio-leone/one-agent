@@ -1,22 +1,20 @@
 {
-  "extends": "../../packages/tsconfig.base.json",
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
     "lib": ["ES2022"],
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "noEmit": false,
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
     "declaration": true,
     "declarationMap": true,
-    "composite": true,
-    "noUncheckedIndexedAccess": false,
-    "baseUrl": "../..",
+    "sourceMap": true,
+    "outDir": "./dist",
     "rootDir": "./src",
-    "paths": {
-      "@onecoach/one-agent/*": ["./submodules/one-agent/src/*"]
-    },
-    "outDir": "./dist"
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": false
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tsup.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

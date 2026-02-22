@@ -6,16 +6,16 @@
 
 import { getAgentRegistry, type RegisteredAgent, type AgentCapability } from './AgentRegistry';
 // Nutrition agent removed - generation is handled by PatternNutritionOrchestratorService in apps/next
-// Workout agent removed - generation now uses SDK 4.2 declarative workflows via @onecoach/one-workout
+// Workout agent removed - generation now uses SDK 4.2 declarative workflows via @giulio-leone/one-workout
 import { createCopilotMeshCoordinator } from '../agents/copilot';
 import { SDK_VERSION } from '../core/version';
-import { createAIProvider } from '@onecoach/lib-ai';
+import { createAIProvider } from '@giulio-leone/lib-ai';
 import { createCostCalculator } from '../core/CostCalculator';
-import { AIProviderConfigService } from '@onecoach/lib-ai';
+import { AIProviderConfigService } from '@giulio-leone/lib-ai';
 
 export interface AgentModelConfig {
   // nutritionModel removed - nutrition generation uses PatternNutritionOrchestratorService
-  // workoutModel removed - workout generation uses SDK 4.2 via @onecoach/one-workout
+  // workoutModel removed - workout generation uses SDK 4.2 via @giulio-leone/one-workout
   copilotModel?: string;
 }
 
@@ -56,7 +56,7 @@ export async function initializeAgentRegistry(
 
   // Use provided models or fallback to defaults
   // nutritionModel removed - nutrition generation uses PatternNutritionOrchestratorService
-  // workoutModel removed - workout generation uses SDK 4.2 via @onecoach/one-workout
+  // workoutModel removed - workout generation uses SDK 4.2 via @giulio-leone/one-workout
   const copilotModel = await resolveModelFromAdmin(modelConfig?.copilotModel, 'copilot');
 
   // Register Copilot Agent
@@ -107,7 +107,7 @@ export async function initializeAgentRegistry(
   // The registry is not used for nutrition plan generation
 
   // Workout Agent REMOVED - generation now uses SDK 4.2 declarative workflows
-  // via @onecoach/one-workout (submodules/one-workout/src/sdk-agents/workout-generation)
+  // via @giulio-leone/one-workout (submodules/one-workout/src/sdk-agents/workout-generation)
   // The WorkoutMeshCoordinator is legacy and no longer used.
 }
 

@@ -5,7 +5,7 @@
  * Provides streaming responses for durable agent execution.
  *
  * @since v4.1
- * @package @onecoach/one-agent/api
+ * @package @giulio-leone/one-agent/api
  */
 
 import type { ProgressField, UIProgressEvent } from './types';
@@ -37,7 +37,7 @@ export interface CreateAgentDurableResponseParams {
  * @example
  * ```typescript
  * // app/api/flight/smart-search/stream/route.ts
- * import { createAgentDurableResponse } from '@onecoach/one-agent/api';
+ * import { createAgentDurableResponse } from '@giulio-leone/one-agent/api';
  *
  * export async function POST(req: Request) {
  *   const { input } = await req.json();

@@ -1,4 +1,4 @@
-import { createAIProvider, MINIMAX_MODELS } from '@onecoach/lib-ai';
+import { createAIProvider, MINIMAX_MODELS } from '@giulio-leone/lib-ai';
 
 try {
   // Set mock API key

@@ -1,7 +1,7 @@
 /**
  * OneAgent SDK 4.2 - Workout Schemas
  *
- * Re-export da @onecoach/schemas per compatibilità.
+ * Re-export da @giulio-leone/schemas per compatibilità.
  * SSOT è in packages/schemas/src/workout/index.ts
  */
 
@@ -47,15 +47,15 @@ export {
   type WorkoutGoals,
   type OneRepMaxData,
   type WorkoutGenerationInput,
-} from '@onecoach/schemas';
+} from '@giulio-leone/schemas';
 
 import { z } from 'zod';
 
 /**
- * Full WorkoutProgram schema for AI generation output (with metadata)// Deprecated schemas removed. Use @onecoach/schemas directly.
+ * Full WorkoutProgram schema for AI generation output (with metadata)// Deprecated schemas removed. Use @giulio-leone/schemas directly.
  */
 export const FullWorkoutProgramSchema = z.lazy(() => {
-  const { workoutProgramSchema } = require('@onecoach/schemas');
+  const { workoutProgramSchema } = require('@giulio-leone/schemas');
   return workoutProgramSchema;
 });
 

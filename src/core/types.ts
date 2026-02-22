@@ -62,8 +62,8 @@ export interface IAgent<TInput, TOutput> {
 /**
  * AI Provider Interface (Dependency Inversion Principle)
  */
-// Re-export IChatService from @onecoach/types for backwards compatibility
-export type { IChatService } from '@onecoach/types';
+// Re-export IChatService from @giulio-leone/types for backwards compatibility
+export type { IChatService } from '@giulio-leone/types';
 
 export interface IAIProvider {
   generateStructuredOutput<T>(params: {

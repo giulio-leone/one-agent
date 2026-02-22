@@ -25,7 +25,7 @@
  */
 
 import { MeshCoordinator, type CoordinatorConfig } from '../../mesh/MeshCoordinator';
-import { TOKEN_LIMITS } from '@onecoach/constants';
+import { TOKEN_LIMITS } from '@giulio-leone/constants';
 import {
   AgentRole,
   type AgentExecution,

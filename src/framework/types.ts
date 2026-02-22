@@ -12,7 +12,7 @@
  */
 
 import { z } from 'zod';
-import type { ModelTier, ProviderName } from '@onecoach/types-ai';
+import type { ModelTier, ProviderName } from '@giulio-leone/types-ai';
 
 // Re-export for use in other modules
 export type { ModelTier, ProviderName };

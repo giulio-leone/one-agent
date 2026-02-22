@@ -3,14 +3,14 @@
  *
  * Provides both structured execution and streaming for chat UI.
  */
-import { ToolLoopAgent, stepCountIs, tool } from '@onecoach/lib-ai';
+import { ToolLoopAgent, stepCountIs, tool } from '@giulio-leone/lib-ai';
 import { z } from 'zod';
 import {
   getModelByTier,
   AIProviderConfigService,
   buildProviderOptions,
   type ProviderName,
-} from '@onecoach/lib-ai';
+} from '@giulio-leone/lib-ai';
 import { execute as sdkExecute } from '../../framework';
 import type { ExecutionResult, PersistenceAdapter } from '../../framework';
 import { registerCopilotSchemas, type CopilotInput, type CopilotOutput } from './schema';
@@ -74,7 +74,7 @@ export async function executeCopilotStream(
     throw new Error(`API key mancante per il provider ${modelConfig.provider}`);
   }
 
-  const { createModelAsync } = await import('@onecoach/lib-ai');
+  const { createModelAsync } = await import('@giulio-leone/lib-ai');
   const model = await createModelAsync(modelConfig, apiKey);
 
   // 3. Build provider options for OpenRouter
@@ -242,7 +242,7 @@ function buildDelegationTools(
       }) => {
         try {
           // @ts-ignore - Dynamic import to avoid circular dependency
-          const { generateNutritionPlan } = await import('@onecoach/lib-nutrition');
+          const { generateNutritionPlan } = await import('@giulio-leone/lib-nutrition');
 
           // Map generic profile to NutritionUserProfile
           const profile = {
@@ -303,7 +303,7 @@ function buildDelegationTools(
       }) => {
         try {
           // @ts-ignore - Dynamic import to avoid circular dependency
-          const { generateWorkoutProgram } = await import('@onecoach/one-workout');
+          const { generateWorkoutProgram } = await import('@giulio-leone/one-workout');
 
           const profile = {
             weight: Number(userProfile?.weight ?? 70),
@@ -360,7 +360,7 @@ function buildDelegationTools(
         returnDate?: string;
         maxResults?: number;
       }) => {
-        const { executeFlightSearch } = await import('@onecoach/lib-flight');
+        const { executeFlightSearch } = await import('@giulio-leone/lib-flight');
         const result = await executeFlightSearch(
           {
             ...input,
@@ -406,7 +406,7 @@ function buildDelegationTools(
         events: any[];
       }) => {
         try {
-          const { generateAgenda } = await import('@onecoach/oneagenda-core');
+          const { generateAgenda } = await import('@giulio-leone/oneagenda-core');
 
           const result = await generateAgenda({
             userId,

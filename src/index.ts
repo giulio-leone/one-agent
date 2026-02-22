@@ -1,7 +1,7 @@
 /**
  * OneAgent SDK 4.2
  *
- * Native AI agent framework for onecoach.
+ * AI Agent framework published as @giulio-leone/one-agent.
  * Durable streaming, skill visibility, and weighted progress.
  * Following KISS, DRY, and SOLID principles.
  *

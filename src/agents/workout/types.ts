@@ -7,8 +7,8 @@
 
 import type { Checkpoint } from '../../mesh/types';
 // Import shared types
-import type { MuscleGroup } from "@onecoach/types-workout";
-import type { Exercise as SharedExercise, WorkoutDay as SharedWorkoutDay, WorkoutWeek as SharedWorkoutWeek, WorkoutProgram as SharedWorkoutProgram, ExerciseSet as SharedExerciseSet, SetGroup as SharedSetGroup, ExerciseCategory as SharedExerciseCategory, DifficultyLevel as SharedDifficultyLevel } from "@onecoach/types-workout";
+import type { MuscleGroup } from "@giulio-leone/types-workout";
+import type { Exercise as SharedExercise, WorkoutDay as SharedWorkoutDay, WorkoutWeek as SharedWorkoutWeek, WorkoutProgram as SharedWorkoutProgram, ExerciseSet as SharedExerciseSet, SetGroup as SharedSetGroup, ExerciseCategory as SharedExerciseCategory, DifficultyLevel as SharedDifficultyLevel } from "@giulio-leone/types-workout";
 
 export type {
   SharedExercise,
@@ -78,7 +78,7 @@ export type ProgressionMethod =
   | 'double_progression'
   | 'wave_loading'
   | 'block_periodization';
-// MuscleGroup imported from @onecoach/types
+// MuscleGroup imported from @giulio-leone/types
 export type DifficultyLevel = SharedDifficultyLevel;
 export type ExerciseCategory = SharedExerciseCategory;
 export type WorkoutStatus = 'DRAFT' | 'ACTIVE' | 'COMPLETED' | 'ARCHIVED';

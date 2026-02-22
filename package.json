@@ -1,96 +1,93 @@
 {
-  "name": "@onecoach/one-agent",
-  "version": "4.2.0-alpha.0",
+  "name": "@giulio-leone/one-agent",
+  "version": "4.2.0",
+  "description": "OneAgent - AI Agent framework",
+  "sideEffects": false,
   "type": "module",
-  "description": "OneAgent SDK 4.2 - AI agent framework with durable streaming, skill visibility, and weighted progress",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./framework": {
-      "types": "./src/framework/index.ts",
-      "default": "./src/framework/index.ts"
-    },
-    "./adapters/*": {
-      "types": "./src/adapters/*.ts",
-      "default": "./src/adapters/*.ts"
-    },
-    "./core/*": {
-      "types": "./src/core/*.ts",
-      "default": "./src/core/*.ts"
-    },
-    "./agents/*": {
-      "types": "./src/agents/*.ts",
-      "default": "./src/agents/*.ts"
-    },
-    "./mesh/*": {
-      "types": "./src/mesh/*.ts",
-      "default": "./src/mesh/*.ts"
-    },
-    "./registry/*": {
-      "types": "./src/registry/*.ts",
-      "default": "./src/registry/*.ts"
-    },
-    "./schemas/*": {
-      "types": "./src/schemas/*.ts",
-      "default": "./src/schemas/*.ts"
-    },
-    "./utils/*": {
-      "types": "./src/utils/*.ts",
-      "default": "./src/utils/*.ts"
-    },
-    "./sdk-agents/*": {
-      "types": "./src/sdk-agents/*/index.ts",
-      "default": "./src/sdk-agents/*/index.ts"
+      "types": "./dist/framework/index.d.ts",
+      "import": "./dist/framework/index.js",
+      "require": "./dist/framework/index.cjs"
     },
     "./api": {
-      "types": "./src/framework/api.ts",
-      "default": "./src/framework/api.ts"
+      "types": "./dist/framework/api.d.ts",
+      "import": "./dist/framework/api.js",
+      "require": "./dist/framework/api.cjs"
     }
   },
+  "files": ["dist"],
   "scripts": {
-    "type-check": "tsc --noEmit"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm run build"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/g97iulio1609/one-agent.git"
+  },
+  "license": "UNLICENSED",
   "dependencies": {
     "@ai-sdk/anthropic": "3.0.39",
     "@ai-sdk/openai": "3.0.26",
+    "@giulio-leone/constants": "*",
+    "@giulio-leone/lib-ai": "*",
+    "@giulio-leone/schemas": "*",
+    "@giulio-leone/types": "*",
+    "@giulio-leone/types-ai": "*",
+    "@giulio-leone/types-workout": "*",
     "@modelcontextprotocol/sdk": "^1.11.0",
-    "@onecoach/constants": "workspace:*",
-    "@onecoach/lib-ai": "workspace:*",
-    "@onecoach/lib-metadata": "workspace:*",
-    "@onecoach/lib-shared": "workspace:*",
-    "@onecoach/schemas": "workspace:*",
     "@openrouter/ai-sdk-provider": "6.0.0-alpha.1",
-    "@prisma/client": "^7.2.0",
-    "@workflow/core": "4.0.1-beta.36",
     "@workflow/ai": "4.0.1-beta.44",
+    "@workflow/core": "4.0.1-beta.36",
     "ai": "6.0.77",
     "yaml": "^2.8.2",
-    "zod": "4.3.6",
-    "@onecoach/types": "workspace:*",
-    "@onecoach/types-core": "workspace:*",
-    "@onecoach/types-workout": "workspace:*",
-    "@onecoach/types-nutrition": "workspace:*",
-    "@onecoach/types-chat": "workspace:*",
-    "@onecoach/types-analytics": "workspace:*",
-    "@onecoach/types-ai": "workspace:*",
-    "@onecoach/types-ui": "workspace:*",
-    "@onecoach/types-domain": "workspace:*",
-    "@onecoach/types-database": "workspace:*"
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
+    "tsup": "^8.0.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "zod": "^4.3.5",
-    "@workflow/world-postgres": "4.1.0-beta.27"
+    "@giulio-leone/lib-flight": "*",
+    "@giulio-leone/lib-nutrition": "*",
+    "@giulio-leone/one-workout": "*",
+    "@giulio-leone/oneagenda-core": "*",
+    "@prisma/client": "^7.2.0",
+    "@workflow/world-postgres": "4.1.0-beta.27",
+    "zod": "^4.3.5"
   },
   "peerDependenciesMeta": {
     "@workflow/world-postgres": {
+      "optional": true
+    },
+    "@giulio-leone/lib-flight": {
+      "optional": true
+    },
+    "@giulio-leone/lib-nutrition": {
+      "optional": true
+    },
+    "@giulio-leone/one-workout": {
+      "optional": true
+    },
+    "@giulio-leone/oneagenda-core": {
+      "optional": true
+    },
+    "@prisma/client": {
       "optional": true
     }
   }

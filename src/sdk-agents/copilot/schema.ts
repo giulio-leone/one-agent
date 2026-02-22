@@ -2,7 +2,7 @@
  * Copilot SDK 4.2 Input/Output Schemas
  */
 import { z } from 'zod';
-import { registerSchemas } from '@onecoach/one-agent/framework';
+import { registerSchemas } from '@giulio-leone/one-agent/framework';
 
 // ============================================================================
 // Input Schema

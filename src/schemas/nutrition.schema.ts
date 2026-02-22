@@ -1,7 +1,7 @@
 /**
  * Nutrition Schemas (shared)
  *
- * Re-exports the canonical schemas from @onecoach/schemas
+ * Re-exports the canonical schemas from @giulio-leone/schemas
  * Uses the pattern-based schemas for nutrition generation
  */
 
@@ -32,7 +32,7 @@ import {
   // AI Generation Schemas (New P3.2)
   AIMacrosSchema,
   AIFoodItemSchema,
-} from '@onecoach/schemas';
+} from '@giulio-leone/schemas';
 
 // Re-export pattern-based schemas
 export {

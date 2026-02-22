@@ -109,7 +109,7 @@ interface AgentMemoryCreateInput {
  *
  * @example
  * import { PrismaClient } from '@prisma/client';
- * import { createPrismaAdapter } from '@onecoach/one-agent/persistence';
+ * import { createPrismaAdapter } from '@giulio-leone/one-agent/persistence';
  *
  * const prisma = new PrismaClient();
  * const persistence = createPrismaAdapter(prisma);

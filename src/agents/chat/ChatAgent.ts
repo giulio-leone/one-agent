@@ -19,7 +19,7 @@
 import { xai } from '@ai-sdk/xai';
 import { ToolLoopAgent, type Tool, type ToolSet } from 'ai';
 import { z } from 'zod';
-import { AIModelService } from '@onecoach/lib-ai';
+import { AIModelService } from '@giulio-leone/lib-ai';
 
 // ============================================================================
 // Types
