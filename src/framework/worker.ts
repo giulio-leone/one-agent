@@ -20,7 +20,7 @@ import {
   buildProviderOptions,
   type ProviderName,
 } from '@giulio-leone/lib-ai';
-import { resolveProviderFromModelId } from '@giulio-leone/types-ai';
+import { resolveProviderFromModelId } from '@giulio-leone/types/ai';
 import type { AgentManifest, Context, ExecutionResult, ExecutionMode } from './types';
 import { OAUTH_PROVIDERS } from './types';
 import { connectToMCPServers, mcpToolsToAiSdk } from './mcp';

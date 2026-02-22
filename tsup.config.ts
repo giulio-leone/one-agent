@@ -18,5 +18,7 @@ export default defineConfig({
     /^@giulio-leone\//,
     /^@prisma\//,
     /^@workflow\//,
+    'workflow',
+    /^workflow\//,
   ],
 });

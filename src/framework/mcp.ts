@@ -177,7 +177,7 @@ async function getOrCreateConnection(
   // Fetch available tools
   const { tools: serverTools } = await client.listTools();
 
-  const tools: MCPTool[] = serverTools.map((t) => ({
+  const tools: MCPTool[] = serverTools.map((t: { name: string; description?: string; inputSchema?: Record<string, unknown> }) => ({
     name: t.name,
     description: t.description ?? '',
     inputSchema: t.inputSchema as Record<string, unknown>,

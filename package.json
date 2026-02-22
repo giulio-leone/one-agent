@@ -24,12 +24,13 @@
       "require": "./dist/framework/api.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "clean": "rm -rf dist",
-    "prepublishOnly": "pnpm run build"
+    "clean": "rm -rf dist"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
