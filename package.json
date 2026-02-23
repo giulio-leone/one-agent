@@ -47,7 +47,7 @@
     "@giulio-leone/lib-ai": "workspace:*",
     "@giulio-leone/schemas": "workspace:*",
     "@giulio-leone/types": "workspace:*",
-    "@modelcontextprotocol/sdk": "^1.11.0",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "@openrouter/ai-sdk-provider": "6.0.0-alpha.1",
     "@workflow/ai": "4.0.1-beta.44",
     "@workflow/core": "4.0.1-beta.36",
