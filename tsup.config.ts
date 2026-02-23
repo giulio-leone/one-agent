@@ -7,7 +7,7 @@ export default defineConfig({
     'framework/api': 'src/framework/api.ts',
   },
   format: ['esm', 'cjs'],
-  dts: true,
+  dts: false,
   clean: true,
   sourcemap: true,
   treeshake: true,
