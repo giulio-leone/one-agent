@@ -25,6 +25,42 @@
     "./hooks": {
       "types": "./src/hooks/index.ts",
       "default": "./src/hooks/index.ts"
+    },
+    "./chat": {
+      "types": "./src/chat/index.ts",
+      "import": "./dist/chat/index.js",
+      "require": "./dist/chat/index.cjs",
+      "default": "./src/chat/index.ts"
+    },
+    "./chat/client": {
+      "types": "./src/chat/client.ts",
+      "import": "./dist/chat/client.js",
+      "require": "./dist/chat/client.cjs",
+      "default": "./src/chat/client.ts"
+    },
+    "./chat/types": {
+      "types": "./src/chat/types/index.ts",
+      "import": "./dist/chat/types.js",
+      "require": "./dist/chat/types.cjs",
+      "default": "./src/chat/types/index.ts"
+    },
+    "./chat/hooks": {
+      "types": "./src/chat/hooks/index.ts",
+      "import": "./dist/chat/hooks.js",
+      "require": "./dist/chat/hooks.cjs",
+      "default": "./src/chat/hooks/index.ts"
+    },
+    "./chat/components": {
+      "types": "./src/chat/components/index.ts",
+      "import": "./dist/chat/components.js",
+      "require": "./dist/chat/components.cjs",
+      "default": "./src/chat/components/index.ts"
+    },
+    "./chat/utils": {
+      "types": "./src/chat/utils/index.ts",
+      "import": "./dist/chat/utils.js",
+      "require": "./dist/chat/utils.cjs",
+      "default": "./src/chat/utils/index.ts"
     }
   },
   "files": [
