@@ -16,7 +16,7 @@
  * );
  * ```
  *
- * @package @giulio-leone/one-agent-hooks
+ * @package @giulio-leone/one-agent/hooks
  */
 
 import { useState, useCallback, useEffect } from 'react';

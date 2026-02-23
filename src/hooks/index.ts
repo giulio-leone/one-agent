@@ -3,7 +3,7 @@
  *
  * React hooks and components for OneAgent SDK 4.1 streaming and progress tracking.
  *
- * @package @giulio-leone/one-agent-hooks
+ * @package @giulio-leone/one-agent/hooks
  * @version 0.1.0
  */
 

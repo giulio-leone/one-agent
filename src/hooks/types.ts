@@ -4,7 +4,7 @@
  * Types for client-side streaming and progress tracking.
  * Compatible with AI SDK v6 UIMessageChunk format.
  *
- * @package @giulio-leone/one-agent-hooks
+ * @package @giulio-leone/one-agent/hooks
  * @version 0.1.0
  */
 

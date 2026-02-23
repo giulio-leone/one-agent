@@ -17,7 +17,7 @@
  * // UI updates in real-time via progress, userMessage, events
  * ```
  *
- * @package @giulio-leone/one-agent-hooks
+ * @package @giulio-leone/one-agent/hooks
  */
 
 import { useCallback, useState, useRef } from 'react';

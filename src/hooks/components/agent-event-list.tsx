@@ -8,7 +8,7 @@
  *
  * @example
  * ```tsx
- * import { AgentEventList, useAdminMode } from '@giulio-leone/one-agent-hooks';
+ * import { AgentEventList, useAdminMode } from '@giulio-leone/one-agent/hooks';
  *
  * const { isAdmin, toggle } = useAdminMode();
  *
@@ -20,7 +20,7 @@
  * />
  * ```
  *
- * @package @giulio-leone/one-agent-hooks
+ * @package @giulio-leone/one-agent/hooks
  */
 
 import * as React from 'react';
