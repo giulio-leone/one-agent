@@ -68,7 +68,6 @@
     "@giulio-leone/one-flight": "workspace:*",
     "@giulio-leone/one-nutrition": "workspace:*",
     "@giulio-leone/one-workout": "workspace:*",
-    "@giulio-leone/oneagenda-core": "workspace:*",
     "@prisma/client": "^7.2.0",
     "@workflow/world-postgres": "4.1.0-beta.27",
     "zod": "^4.3.5",
@@ -86,9 +85,6 @@
       "optional": true
     },
     "@giulio-leone/one-workout": {
-      "optional": true
-    },
-    "@giulio-leone/oneagenda-core": {
       "optional": true
     },
     "@prisma/client": {

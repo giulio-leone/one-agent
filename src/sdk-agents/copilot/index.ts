@@ -417,7 +417,7 @@ function buildDelegationTools(
         events: Array<Record<string, unknown>>;
       }) => {
         try {
-          const { generateAgenda } = await import('@giulio-leone/oneagenda-core');
+          const { generateAgenda } = await import('@giulio-leone/one-agenda');
 
           const result = await generateAgenda({
             userId,
