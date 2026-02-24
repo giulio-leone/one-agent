@@ -9,10 +9,10 @@
  * @since v4.1
  */
 
-import { FatalError } from 'workflow';
-import { start } from 'workflow/api';
+import { FatalError } from '../../workflow-shim';
 import type { UIMessageChunk } from 'ai';
 import type { ProgressField } from '../../types';
+import { startCompatRun } from '../../runtime-compat';
 
 // Forward reference - will be resolved at runtime
 // This avoids circular dependency issues
@@ -45,7 +45,7 @@ export async function executeNestedManagerStep(
   console.log(`[NestedManagerStep] Starting nested Manager: ${agentId}`);
 
   // Start child workflow
-  const childRun = await start(agentWorkflow, [
+  const childRun = await startCompatRun(agentWorkflow, [
     {
       agentId,
       basePath,

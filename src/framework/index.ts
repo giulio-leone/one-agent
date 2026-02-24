@@ -2,7 +2,7 @@
  * OneAgent SDK v4.2 - Public API
  *
  * Fractal Agent Architecture with MCP Integration
- * v4.0: Added DurableAgent support via WDK
+ * v4.0: Added durable execution support
  * v4.1: Added streaming progress via getWritable() and AI-driven updates
  * v4.2: Added skill visibility, weighted progress, and abstracted workout patterns
  *
@@ -34,8 +34,15 @@ export { executeWorker, buildSystemPrompt } from './worker';
 // ==================== DURABLE (v4.0) ====================
 export { executeDurable, getDurableWorkflowStatus, cancelDurableWorkflow } from './durable';
 
-// ==================== WDK WORLD (v4.0) ====================
-export { initializeWDKWorld, isWDKWorldAvailable, getWDKWorldStatus } from './wdk-world';
+// ==================== RUNTIME BOOTSTRAP ====================
+export {
+  initializeGaussFlowRuntime,
+  isGaussFlowRuntimeAvailable,
+  getGaussFlowRuntimeStatus,
+  initializeWDKWorld,
+  isWDKWorldAvailable,
+  getWDKWorldStatus,
+} from './wdk-world';
 
 // ==================== WORKFLOW ====================
 export { executeWorkflow } from './workflow';

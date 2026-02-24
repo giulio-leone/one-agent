@@ -83,6 +83,7 @@
   "dependencies": {
     "@ai-sdk/anthropic": "3.0.39",
     "@ai-sdk/openai": "3.0.26",
+    "@giulio-leone/gaussflow-agent": "latest",
     "@giulio-leone/lib-ai": "workspace:*",
     "@giulio-leone/schemas": "workspace:*",
     "@giulio-leone/types": "workspace:*",
@@ -104,15 +105,11 @@
     "@giulio-leone/one-nutrition": "workspace:*",
     "@giulio-leone/one-workout": "workspace:*",
     "@prisma/client": "^7.2.0",
-    "@workflow/world-postgres": "4.1.0-beta.27",
     "zod": "^4.3.5",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "peerDependenciesMeta": {
-    "@workflow/world-postgres": {
-      "optional": true
-    },
     "@giulio-leone/one-flight": {
       "optional": true
     },

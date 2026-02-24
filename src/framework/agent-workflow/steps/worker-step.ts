@@ -13,7 +13,7 @@
  */
 
 import { ToolLoopAgent, stepCountIs, Output } from 'ai';
-import { FatalError, RetryableError, getStepMetadata } from 'workflow';
+import { FatalError, RetryableError, getStepMetadata } from '../../workflow-shim';
 import type { UIMessageChunk } from 'ai';
 import type { ProgressRange } from '../types';
 import { OAUTH_PROVIDERS } from '../../types';

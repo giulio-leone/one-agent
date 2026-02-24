@@ -9,6 +9,55 @@
  */
 
 import type { ProgressField, UIProgressEvent } from './types';
+import {
+  startCompatRun,
+  getCompatRunFromApi,
+  classifyCompatRunError,
+  type CompatRunHandle,
+} from './runtime-compat';
+
+export type AgentDurableRunHandle = CompatRunHandle;
+
+export interface StartAgentDurableRunParams {
+  agentId: string;
+  input: unknown;
+  userId: string;
+  basePath?: string;
+  executionId?: string;
+}
+
+export async function startAgentDurableRun(
+  params: StartAgentDurableRunParams
+): Promise<AgentDurableRunHandle> {
+  const {
+    agentId,
+    input,
+    userId,
+    basePath = process.cwd(),
+    executionId = crypto.randomUUID(),
+  } = params;
+  const { agentWorkflow } = await import('./agent-workflow');
+
+  return (await startCompatRun(agentWorkflow, [
+    {
+      agentId,
+      basePath,
+      inputJson: JSON.stringify(input),
+      userId,
+      executionId,
+    },
+  ])) as CompatRunHandle;
+}
+
+export async function getAgentDurableRun(runId: string): Promise<AgentDurableRunHandle> {
+  return getCompatRunFromApi(runId);
+}
+
+export async function classifyDurableRunError(
+  error: unknown
+): Promise<'not-completed' | 'failed' | 'unknown'> {
+  return classifyCompatRunError(error);
+}
 
 /**
  * Parameters for createAgentDurableResponse
@@ -57,24 +106,15 @@ export async function createAgentDurableResponse(
   const { agentId, input, userId, basePath = process.cwd(), headers = {} } = params;
 
   try {
-    // Dynamic imports for WDK (may not be installed)
-    const [{ start }, { agentWorkflow }] = await Promise.all([
-      import('@workflow/core/runtime'),
-      import('./agent-workflow'),
-    ]);
-
+    // Runtime-start abstraction (internally supports legacy workflow runtime today).
     const executionId = crypto.randomUUID();
-
-    // Start the durable workflow
-    const run = await start(agentWorkflow, [
-      {
-        agentId,
-        basePath,
-        inputJson: JSON.stringify(input),
-        userId,
-        executionId,
-      },
-    ]);
+    const run = await startAgentDurableRun({
+      agentId,
+      input,
+      userId,
+      basePath,
+      executionId,
+    });
 
     // Create SSE stream that reads from WDK and formats for frontend
     const sseStream = new ReadableStream({
@@ -125,13 +165,13 @@ export async function createAgentDurableResponse(
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
 
-    // Check for missing WDK packages
+    // Check for missing workflow runtime packages
     if (message.includes("Cannot find module '@workflow")) {
       return new Response(
         JSON.stringify({
-          error: 'WDK packages not installed',
+          error: 'Workflow runtime packages not installed',
           details:
-            'Install @workflow/core and configure @workflow/world-postgres for durable streaming.',
+            'Install @workflow/core (legacy) or @giulio-leone/gaussflow-agent (recommended) for durable streaming.',
         }),
         {
           status: 500,

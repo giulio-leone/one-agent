@@ -29,7 +29,7 @@
  * @since v5.1 - Improved progress messages for workflows
  */
 
-import { getWritable, FatalError } from 'workflow';
+import { getWritable, FatalError } from '../workflow-shim';
 import type { UIMessageChunk } from 'ai';
 import type { WorkflowStep, CallStep, ParallelStep, LoopStep, TransformStep } from '../types';
 

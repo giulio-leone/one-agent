@@ -8,7 +8,7 @@
  * - Same interface as executeWorker() for easy migration
  * - Automatic checkpointing at step/tool boundaries
  * - Resume from workflowRunId on failure
- * - WDK Postgres World for self-hosted persistence
+ * - Durable runtime bootstrap for self-hosted persistence
  *
  * @since v4.2
  */
@@ -20,6 +20,7 @@ import type {
   DurableExecuteOptions,
   WorkflowEvent,
 } from './types';
+import { getCompatRunFromCore, startCompatRun } from './runtime-compat';
 
 // ==================== PUBLIC API ====================
 
@@ -120,9 +121,7 @@ export async function getDurableWorkflowStatus(workflowRunId: string): Promise<{
   output?: unknown;
 }> {
   try {
-    // Import from WDK runtime
-    const { getRun } = await import('@workflow/core/runtime');
-    const run = getRun(workflowRunId);
+    const run = await getCompatRunFromCore(workflowRunId);
 
     const status = await run.status;
 
@@ -153,10 +152,8 @@ export async function getDurableWorkflowStatus(workflowRunId: string): Promise<{
  */
 export async function cancelDurableWorkflow(workflowRunId: string): Promise<boolean> {
   try {
-    const { getRun } = await import('@workflow/core/runtime');
-
     // Get the run - this may throw if run doesn't exist
-    const run = getRun(workflowRunId);
+    const run = await getCompatRunFromCore(workflowRunId);
 
     // Check if the run has a valid status before trying to cancel
     // WDK throws ZodError if the run data is invalid/incomplete
@@ -210,8 +207,7 @@ async function pollExistingRun<TOutput>(
   startTime: number
 ): Promise<DurableExecutionResult<TOutput>> {
   try {
-    const { getRun } = await import('@workflow/core/runtime');
-    const run = getRun<TOutput>(runId);
+    const run = await getCompatRunFromCore<TOutput>(runId);
 
     // Get current status
     const status = await run.status;
@@ -313,9 +309,6 @@ async function executeWithWDK<TOutput>(params: {
   const startTime = Date.now();
 
   try {
-    // Import WDK runtime
-    const { start } = await import('@workflow/core/runtime');
-
     // Import the agent workflow function
     const { agentWorkflow } = await import('./agent-workflow');
 
@@ -328,7 +321,7 @@ async function executeWithWDK<TOutput>(params: {
     // Start the workflow using WDK's official API
     // CRITICAL: Pass only minimal params to avoid CBOR serialization issues
     // Heavy data (prompts, schemas, tools) is reconstructed inside the workflow step
-    const run = await start(agentWorkflow, [
+    const run = await startCompatRun(agentWorkflow, [
       {
         agentId: manifest.id,
         basePath: context.basePath!, // Validated earlier in executeDurable()
@@ -397,7 +390,7 @@ async function executeWithWDK<TOutput>(params: {
 
     if (message.includes("Cannot find module '@workflow")) {
       throw new Error(
-        `WDK packages not installed. Install @workflow/core and configure @workflow/world-postgres for durable mode.`
+        `Workflow runtime packages not installed. Install @workflow/core (legacy) or @giulio-leone/gaussflow-agent (recommended).`
       );
     }
 
