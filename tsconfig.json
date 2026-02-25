@@ -13,7 +13,8 @@
     "baseUrl": "../..",
     "rootDir": "./src",
     "paths": {
-      "@onecoach/one-agent/*": ["./submodules/one-agent/src/*"]
+      "@onecoach/one-agent/*": ["./submodules/one-agent/src/*"],
+      "@giulio-leone/agent-contracts": ["./packages/agent-contracts/src/index.ts"]
     },
     "outDir": "./dist"
   },

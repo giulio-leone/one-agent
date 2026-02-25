@@ -17,86 +17,30 @@ import type { ModelTier, ProviderName } from '@onecoach/types-ai';
 // Re-export for use in other modules
 export type { ModelTier, ProviderName };
 
-// ==================== CONTEXT (Shared Data Bus) ====================
+// Re-export contract types from @giulio-leone/agent-contracts
+export type {
+  ExecutionStatus,
+  ChatMessage,
+  ExecutionMeta,
+  ProgressEvent,
+  ProgressCallback,
+  ProgressField,
+  UIProgressEvent,
+  Context,
+  MemoryEntry,
+  PersistenceAdapter,
+  ExecutionResult,
+  RegisterSchemasFn,
+  RegisterToolsFn,
+  RegisterTransformsFn,
+  ExecuteFn,
+  CreateInMemoryAdapterFn,
+} from '@giulio-leone/agent-contracts';
 
-/**
- * Execution context - the shared data bus for all agents
- */
-export interface Context {
-  /** Unique execution ID */
-  executionId: string;
-
-  /** User who initiated the execution */
-  userId: string;
-
-  /** Base path for resolving relative agent paths */
-  basePath?: string;
-
-  /** Initial input (read-only) */
-  readonly input: unknown;
-
-  /** Persistent structured store (survives across steps) */
-  artifacts: Record<string, unknown>;
-
-  /** Ephemeral working memory (cleared after each step) */
-  memory: ChatMessage[];
-
-  /** Execution metadata */
-  meta: ExecutionMeta;
-
-  /** Progress callback for real-time updates (optional) */
-  onProgress?: ProgressCallback;
-}
-
-/**
- * Chat message for working memory
- */
-export interface ChatMessage {
-  role: 'system' | 'user' | 'assistant' | 'tool';
-  content: string;
-  toolCallId?: string;
-  toolName?: string;
-}
-
-/**
- * Execution metadata for tracking
- */
-export interface ExecutionMeta {
-  startedAt: Date;
-  updatedAt: Date;
-  currentStep: string;
-  tokensUsed: number;
-  costUSD: number;
-  status: ExecutionStatus;
-  error?: string;
-}
-
-export type ExecutionStatus = 'pending' | 'running' | 'paused' | 'completed' | 'failed';
-
-// ==================== PROGRESS CALLBACK ====================
-
-/**
- * Progress event emitted during execution
- * Used for real-time UI updates via streaming
- */
-export interface ProgressEvent {
-  /** Current step/agent being executed */
-  step: string;
-  /** Progress percentage (0-100) */
-  progress: number;
-  /** Human-readable status message */
-  message: string;
-  /** Additional metadata */
-  data?: Record<string, unknown>;
-  /** Timestamp */
-  timestamp: Date;
-}
-
-/**
- * Callback for receiving progress updates during execution
- * Compatible with AI SDK v6 data parts for streaming
- */
-export type ProgressCallback = (event: ProgressEvent) => void;
+// NOTE: Context, ChatMessage, ExecutionMeta, ExecutionStatus, ProgressEvent,
+// ProgressCallback, ProgressField, UIProgressEvent, MemoryEntry,
+// PersistenceAdapter, ExecutionResult are now defined in @giulio-leone/agent-contracts
+// and re-exported above.
 
 // ==================== AI-DRIVEN PROGRESS (v4.1) ====================
 
@@ -161,26 +105,6 @@ export const ProgressFieldSchema = z.object({
   /** Tool name if this is a tool-related event */
   toolName: z.string().optional().describe('Name of the tool being called, if applicable'),
 });
-
-/** TypeScript type for ProgressFieldSchema */
-export type ProgressField = z.infer<typeof ProgressFieldSchema>;
-
-/**
- * UI Progress Event - what gets written to WDK getWritable() stream.
- * Compatible with AI SDK v6 UIMessageChunk format.
- *
- * @since v4.1
- */
-export interface UIProgressEvent {
-  /** Event type - 'data-progress' for AI SDK compatibility */
-  type: 'data-progress';
-  /** Progress data from AI's _progress field */
-  data: ProgressField;
-  /** Transient events are not persisted in message history */
-  transient: true;
-  /** Optional ID for correlation */
-  id?: string;
-}
 
 /**
  * Progress instructions to inject into system prompt.
@@ -629,55 +553,10 @@ export interface MCPTool {
 }
 
 // ==================== PERSISTENCE ====================
-
-/**
- * Persistence adapter interface
- */
-export interface PersistenceAdapter {
-  createContext(data: Omit<Context, 'executionId' | 'meta'>): Promise<Context>;
-  loadContext(executionId: string): Promise<Context | null>;
-  saveContext(context: Context): Promise<void>;
-  loadMemory(userId: string, domain: string, limit?: number): Promise<MemoryEntry[]>;
-  saveMemory(entry: Omit<MemoryEntry, 'id' | 'createdAt'>): Promise<MemoryEntry>;
-  summarizeMemory(userId: string, agentId: string): Promise<void>;
-}
-
-/**
- * Memory entry for long-term storage
- */
-export interface MemoryEntry {
-  id: string;
-  userId: string;
-  agentId: string;
-  domain: string;
-  type: 'episodic' | 'semantic' | 'procedural';
-  content: string;
-  data?: Record<string, unknown>;
-  importance: number;
-  summary?: string;
-  createdAt: Date;
-}
+// PersistenceAdapter, MemoryEntry are re-exported from @giulio-leone/agent-contracts above.
 
 // ==================== ENGINE RESULT ====================
-
-/**
- * Execution result
- */
-export interface ExecutionResult<T = unknown> {
-  success: boolean;
-  output?: T;
-  error?: {
-    message: string;
-    code: string;
-    recoverable: boolean;
-  };
-  meta: {
-    executionId: string;
-    duration: number;
-    tokensUsed: number;
-    costUSD: number;
-  };
-}
+// ExecutionResult is re-exported from @giulio-leone/agent-contracts above.
 
 /**
  * Extended execution result for durable mode

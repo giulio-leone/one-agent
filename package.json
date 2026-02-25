@@ -55,6 +55,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@giulio-leone/agent-contracts": "workspace:*",
     "@ai-sdk/anthropic": "3.0.39",
     "@ai-sdk/openai": "3.0.26",
     "@modelcontextprotocol/sdk": "^1.11.0",
