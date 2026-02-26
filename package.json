@@ -3,55 +3,140 @@
   "version": "4.2.0-alpha.0",
   "type": "module",
   "description": "OneAgent SDK 4.2 - AI agent framework with durable streaming, skill visibility, and weighted progress",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./framework": {
-      "types": "./src/framework/index.ts",
-      "default": "./src/framework/index.ts"
+      "import": {
+        "types": "./dist/framework/index.d.ts",
+        "default": "./dist/framework/index.js"
+      },
+      "require": {
+        "types": "./dist/framework/index.d.cts",
+        "default": "./dist/framework/index.cjs"
+      }
     },
     "./adapters/*": {
-      "types": "./src/adapters/*.ts",
-      "default": "./src/adapters/*.ts"
+      "import": {
+        "types": "./dist/adapters/*.d.ts",
+        "default": "./dist/adapters/*.js"
+      },
+      "require": {
+        "types": "./dist/adapters/*.d.cts",
+        "default": "./dist/adapters/*.cjs"
+      }
     },
     "./core/*": {
-      "types": "./src/core/*.ts",
-      "default": "./src/core/*.ts"
+      "import": {
+        "types": "./dist/core/*.d.ts",
+        "default": "./dist/core/*.js"
+      },
+      "require": {
+        "types": "./dist/core/*.d.cts",
+        "default": "./dist/core/*.cjs"
+      }
     },
     "./agents/*": {
-      "types": "./src/agents/*.ts",
-      "default": "./src/agents/*.ts"
+      "import": {
+        "types": "./dist/agents/*.d.ts",
+        "default": "./dist/agents/*.js"
+      },
+      "require": {
+        "types": "./dist/agents/*.d.cts",
+        "default": "./dist/agents/*.cjs"
+      }
     },
     "./mesh/*": {
-      "types": "./src/mesh/*.ts",
-      "default": "./src/mesh/*.ts"
+      "import": {
+        "types": "./dist/mesh/*.d.ts",
+        "default": "./dist/mesh/*.js"
+      },
+      "require": {
+        "types": "./dist/mesh/*.d.cts",
+        "default": "./dist/mesh/*.cjs"
+      }
     },
     "./registry/*": {
-      "types": "./src/registry/*.ts",
-      "default": "./src/registry/*.ts"
+      "import": {
+        "types": "./dist/registry/*.d.ts",
+        "default": "./dist/registry/*.js"
+      },
+      "require": {
+        "types": "./dist/registry/*.d.cts",
+        "default": "./dist/registry/*.cjs"
+      }
     },
     "./schemas/*": {
-      "types": "./src/schemas/*.ts",
-      "default": "./src/schemas/*.ts"
+      "import": {
+        "types": "./dist/schemas/*.d.ts",
+        "default": "./dist/schemas/*.js"
+      },
+      "require": {
+        "types": "./dist/schemas/*.d.cts",
+        "default": "./dist/schemas/*.cjs"
+      }
     },
     "./utils/*": {
-      "types": "./src/utils/*.ts",
-      "default": "./src/utils/*.ts"
+      "import": {
+        "types": "./dist/utils/*.d.ts",
+        "default": "./dist/utils/*.js"
+      },
+      "require": {
+        "types": "./dist/utils/*.d.cts",
+        "default": "./dist/utils/*.cjs"
+      }
     },
     "./sdk-agents/*": {
-      "types": "./src/sdk-agents/*/index.ts",
-      "default": "./src/sdk-agents/*/index.ts"
+      "import": {
+        "types": "./dist/sdk-agents/*/index.d.ts",
+        "default": "./dist/sdk-agents/*/index.js"
+      },
+      "require": {
+        "types": "./dist/sdk-agents/*/index.d.cts",
+        "default": "./dist/sdk-agents/*/index.cjs"
+      }
     },
     "./api": {
-      "types": "./src/framework/api.ts",
-      "default": "./src/framework/api.ts"
+      "import": {
+        "types": "./dist/framework/api.d.ts",
+        "default": "./dist/framework/api.js"
+      },
+      "require": {
+        "types": "./dist/framework/api.d.cts",
+        "default": "./dist/framework/api.cjs"
+      }
+    },
+    "./chat": {
+      "types": "./src/chat/index.ts",
+      "default": "./src/chat/index.ts"
+    },
+    "./chat/client": {
+      "types": "./src/chat/client.ts",
+      "default": "./src/chat/client.ts"
+    },
+    "./chat/types": {
+      "types": "./src/chat/types.ts",
+      "default": "./src/chat/types.ts"
+    },
+    "./hooks": {
+      "types": "./src/hooks/index.ts",
+      "default": "./src/hooks/index.ts"
     }
   },
   "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -84,6 +169,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
