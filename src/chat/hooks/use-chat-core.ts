@@ -145,7 +145,7 @@ export function useChatCore(options: UseChatCoreOptions = {}): UseChatCoreResult
   const aiInitialMessages = useMemo<UIMessage[]>(() => {
     if (!initialMessages.length) return [];
 
-    return initialMessages.map((m) => {
+    return initialMessages.map((m: any) => {
       // KISS: If message already has parts array with content, use it directly
       // This preserves tool-call/tool-result/reasoning parts from loaded conversations
       if (m.parts && Array.isArray(m.parts) && m.parts.length > 0) {
@@ -377,13 +377,13 @@ export function useChatCore(options: UseChatCoreOptions = {}): UseChatCoreResult
 
   // Reload handler - re-send last user message
   const reload = useCallback(async () => {
-    const lastUserMessage = messages.filter((m) => m.role === 'user').pop();
+    const lastUserMessage = messages.filter((m: any) => m.role === 'user').pop();
     if (!lastUserMessage) {
       log('No user message to reload');
       return;
     }
 
-    const textPart = lastUserMessage.parts.find((p) => p.type === 'text');
+    const textPart = lastUserMessage.parts.find((p: any) => p.type === 'text');
     const text = textPart && 'text' in textPart ? (textPart as { text: string }).text : '';
 
     if (!text) {

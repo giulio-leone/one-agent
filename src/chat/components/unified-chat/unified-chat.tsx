@@ -629,7 +629,7 @@ export function UnifiedChat({
                 }
                 className="rounded-lg border border-neutral-200 bg-white px-2 py-1 text-sm dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
               >
-                {models.map((model) => (
+                {models.map((model: any) => (
                   <option key={model.id} value={model.id}>
                     {model.displayName}
                   </option>

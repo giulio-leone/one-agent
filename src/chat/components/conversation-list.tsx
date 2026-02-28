@@ -274,7 +274,7 @@ export const ConversationList = memo(function ConversationList({
           </div>
         ) : (
           <AnimatePresence mode="popLayout">
-            {conversations.map((conversation) => (
+            {conversations.map((conversation: any) => (
               <ConversationItem
                 key={conversation.id}
                 conversation={conversation}

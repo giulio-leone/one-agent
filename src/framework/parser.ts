@@ -141,7 +141,7 @@ function parseYamlBlocks(content: string): WorkflowStep[] {
 
     // Check if another header exists between this header and the YAML
     // (which would mean this YAML belongs to a different step)
-    const headersBetween = headers.filter((h) => h.pos > nearestHeader!.pos && h.pos < yaml.pos);
+    const headersBetween = headers.filter((h: any) => h.pos > nearestHeader!.pos && h.pos < yaml.pos);
     if (headersBetween.length > 0) {
       // YAML belongs to the closest header before it
       nearestHeader = headersBetween[headersBetween.length - 1]!;

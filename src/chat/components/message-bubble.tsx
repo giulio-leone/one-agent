@@ -169,7 +169,7 @@ const StreamingIndicator = memo(function StreamingIndicator({ variant }: Streami
 
   return (
     <span className="ml-1 inline-flex items-center gap-1" aria-label="Generating response">
-      {[0, 1, 2].map((i) => (
+      {[0, 1, 2].map((i: any) => (
         <motion.span
           key={i}
           className={`${dotSize} rounded-full bg-current opacity-60`}
@@ -439,7 +439,7 @@ export const LoadingBubble = memo(function LoadingBubble({
 
       <div className={`${styles.assistantBubble} flex items-center gap-1.5`}>
         <span className="sr-only">Loading response</span>
-        {[0, 1, 2].map((i) => (
+        {[0, 1, 2].map((i: any) => (
           <motion.span
             key={i}
             className="bg-primary/60 h-2 w-2 rounded-full"

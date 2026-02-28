@@ -164,7 +164,7 @@ export async function executeNode<TOutput = unknown>(
   input: unknown,
   context: Context,
   basePath?: string,
-  resumeFromRunId?: string
+  _resumeFromRunId?: string
 ): Promise<ExecutionResult<TOutput> | DurableExecutionResult<TOutput>> {
   const startTime = Date.now();
 

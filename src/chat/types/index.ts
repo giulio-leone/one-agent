@@ -100,7 +100,7 @@ export function isUIToolPart(part: { type: string }): part is ToolUIPart {
 export function getUIMessageText(parts: { type: string; text?: string }[]): string {
   return parts
     .filter((p): p is TextUIPart => isUITextPart(p))
-    .map((p) => p.text)
+    .map((p: any) => p.text)
     .join('');
 }
 

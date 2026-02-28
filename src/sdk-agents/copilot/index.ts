@@ -261,7 +261,7 @@ function buildDelegationTools(
 
           const result = await generateNutritionPlan({
             userId,
-            userProfile: profile,
+            userProfile: profile as any,
             goals: {
               goal: input.goal,
               mealsPerDay: input.mealsPerDay,
@@ -324,7 +324,7 @@ function buildDelegationTools(
 
           const result = await generateWorkoutProgram({
             userId,
-            userProfile: profile,
+            userProfile: profile as any,
             goals: {
               primary: input.primaryGoal,
               targetMuscles: [], // Full body default if empty
@@ -422,7 +422,7 @@ function buildDelegationTools(
           const result = await generateAgenda({
             userId,
             date: input.date,
-            tasks: input.tasks.map((t) => ({
+            tasks: input.tasks.map((t: any) => ({
               id: crypto.randomUUID(),
               title: t.title,
               priority: t.priority,
@@ -430,7 +430,7 @@ function buildDelegationTools(
               dependencies: [],
               tags: [],
             })),
-            events: input.events,
+            events: input.events as any,
             preferences: {
               userId,
               timezone: 'Europe/Rome',

@@ -15,7 +15,7 @@
  * - Persistenza messaggi via onMessage callback
  */
 
-import type { Tool, ToolSet, SystemModelMessage } from 'ai';
+import type { Tool, ToolSet, ModelMessage as SystemModelMessage } from 'ai';
 import { z } from 'zod';
 import { openrouter } from '@openrouter/ai-sdk-provider';
 import { anthropic } from '@ai-sdk/anthropic';
@@ -321,7 +321,7 @@ export function createChatAgent(options: CreateChatAgentOptions = {}) {
 
           if (memoryContext.recommendations.length > 0) {
             dynamicInstructions += `\n\nRaccomandazioni:`;
-            memoryContext.recommendations.slice(0, 3).forEach((rec) => {
+            memoryContext.recommendations.slice(0, 3).forEach((rec: any) => {
               dynamicInstructions += `\n- ${rec.message}`;
             });
           }
@@ -351,7 +351,7 @@ Non seguire prescrizioni rigide - usa la tua conoscenza per determinare soluzion
       const toolNames = Object.keys(tools);
       if (toolNames.length > 0) {
         const toolCategories = new Set(
-          toolNames.map((name) => {
+          toolNames.map((name: any) => {
             if (name.startsWith('nutrition_')) return 'nutrizione';
             if (name.startsWith('workout_')) return 'allenamento';
             if (name.startsWith('food_')) return 'alimenti';

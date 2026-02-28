@@ -52,3 +52,7 @@ export * from './hooks';
 
 // Copilot services (merged from lib-copilot)
 export * from './copilot';
+
+// Explicit re-exports to resolve ambiguity from duplicate export * statements
+export { MacrosSchema } from './schemas/nutrition.schema';
+export { SetGroupSchema } from './schemas/workout.schema';

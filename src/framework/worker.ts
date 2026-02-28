@@ -27,8 +27,8 @@ import { connectToMCPServers, mcpToolsToAiSdk } from './mcp';
 import { loadAgentSkills } from './loader';
 
 /** Rough token count estimate: ~4 chars per token */
-function estimateTokens(...texts: (string | undefined)[]): number {
-  return texts.reduce((sum, t) => sum + Math.ceil((t?.length ?? 0) / 4), 0);
+function estimateTokens(...texts: unknown[]): number {
+  return texts.reduce<number>((sum, t) => sum + Math.ceil(String(t ?? '').length / 4), 0);
 }
 
 /** Safely traverse nested object by dot-separated path */
@@ -148,7 +148,7 @@ export async function executeWorker<TOutput = unknown>(
     const agent = new ToolLoopAgent({
       model,
       instructions: systemPrompt,
-      tools,
+      tools: tools as any,
       stopWhen: stepCountIs(maxSteps),
       toolChoice: options.toolChoice ?? (Object.keys(tools).length > 0 ? 'auto' : 'none'),
       output: Output.object({

@@ -149,13 +149,13 @@ export function createAgenticTool<TEntity extends object>(
   const actionSchema = z.enum(actionNames);
 
   // Build unified target/changes schemas (union of all action schemas)
-  const allTargetSchemas = Object.values(actions).map((a) => a.targetSchema);
+  const allTargetSchemas = Object.values(actions).map((a: any) => a.targetSchema);
   const allChangesSchemas = Object.values(actions)
-    .filter((a) => a.changesSchema)
-    .map((a) => a.changesSchema!);
+    .filter((a: any) => a.changesSchema)
+    .map((a: any) => a.changesSchema!);
   const allNewDataSchemas = Object.values(actions)
-    .filter((a) => a.newDataSchema)
-    .map((a) => a.newDataSchema!);
+    .filter((a: any) => a.newDataSchema)
+    .map((a: any) => a.newDataSchema!);
 
   // Create union schemas (or passthrough if empty)
   const targetUnion =
@@ -315,7 +315,7 @@ Use indices for precise targeting or names for fuzzy matching.`,
 
       // 5. Apply beforeSave hook
       if (beforeSave) {
-        currentEntity = (await beforeSave(currentEntity, context)) as TEntity;
+        currentEntity = (await beforeSave(currentEntity, context)) as unknown as Awaited<TEntity>;
       }
 
       // 6. Save entity
@@ -335,8 +335,8 @@ Use indices for precise targeting or names for fuzzy matching.`,
       }
 
       // 8. Return result
-      const successCount = results.filter((r) => r.startsWith('✅')).length;
-      const errorCount = results.filter((r) => r.startsWith('❌')).length;
+      const successCount = results.filter((r: any) => r.startsWith('✅')).length;
+      const errorCount = results.filter((r: any) => r.startsWith('❌')).length;
 
       console.log(`[MCP:${name}] ✅ Complete:`, { successCount, errorCount });
 

@@ -66,7 +66,7 @@ export async function buildNutritionContext(
   });
 
   const normalizedRecentPlans = await Promise.all(
-    recentPlans.map((plan) =>
+    recentPlans.map((plan: any) =>
       resolveFoodReferences(
         normalizeNutritionPlan(plan as Parameters<typeof normalizeNutritionPlan>[0])
       )
@@ -178,7 +178,7 @@ export async function buildChatContext(
     take: CHAT_CONSTANTS.RECENT_ITEMS_TAKE,
   });
 
-  const normalizedRecentPlans = recentPlans.map((plan) =>
+  const normalizedRecentPlans = recentPlans.map((plan: any) =>
     normalizeNutritionPlan(plan as Parameters<typeof normalizeNutritionPlan>[0])
   );
   const normalizedRecentPrograms = recentPrograms as WorkoutProgram[];

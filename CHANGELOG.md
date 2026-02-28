@@ -1,5 +1,15 @@
 # @giulio-leone/one-agent
 
+## 0.14.1
+
+### Patch Changes
+
+- Updated dependencies [4cab47c]
+  - @giulio-leone/one-workout@0.10.1
+  - @giulio-leone/lib-ai@0.15.2
+  - @giulio-leone/one-flight@0.15.2
+  - @giulio-leone/one-nutrition@0.15.2
+
 ## 4.2.1
 
 ### Patch Changes
