@@ -81,6 +81,7 @@
     "@ai-sdk/openai": "3.0.26",
     "@giulio-leone/gaussflow-agent": "latest",
     "@giulio-leone/lib-ai": "workspace:*",
+    "@giulio-leone/lib-shared": "workspace:*",
     "@giulio-leone/schemas": "workspace:*",
     "@giulio-leone/types": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.26.0",

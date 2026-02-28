@@ -45,12 +45,8 @@ export interface Metadata {
   [key: string]: JsonValue;
 }
 
-/**
- * Type guard for Error
- */
-export function isError(error: unknown): error is Error {
-  return error instanceof Error;
-}
+// isError SSOT is in @giulio-leone/lib-shared — re-export for backward compatibility
+export { isError } from '@giulio-leone/lib-shared';
 
 /**
  * Base mesh agent type - Union type for agent instances
