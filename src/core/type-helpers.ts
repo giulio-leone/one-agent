@@ -45,9 +45,6 @@ export interface Metadata {
   [key: string]: JsonValue;
 }
 
-// isError SSOT is in @giulio-leone/lib-shared — re-export for backward compatibility
-export { isError } from '@giulio-leone/lib-shared';
-
 /**
  * Base mesh agent type - Union type for agent instances
  * Used when generics cannot be determined at compile time
