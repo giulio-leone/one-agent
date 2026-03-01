@@ -219,7 +219,7 @@ Use indices for precise targeting or names for fuzzy matching.`,
       const entityId = args[entityIdField] as string;
       const batch = args.batch as ModificationItem[] | undefined;
 
-      console.log(`[MCP:${name}] 📥 Called:`, {
+      console.warn(`[MCP:${name}] 📥 Called:`, {
         entityId,
         action: args.action,
         hasBatch: !!batch?.length,
@@ -321,7 +321,7 @@ Use indices for precise targeting or names for fuzzy matching.`,
       // 6. Save entity
       try {
         await saveEntity(entityId, currentEntity, context);
-        console.log(`[MCP:${name}] 💾 Saved successfully`);
+        console.warn(`[MCP:${name}] 💾 Saved successfully`);
       } catch (error) {
         console.error(`[MCP:${name}] 💥 Save failed:`, error);
         return errorResult(
@@ -338,7 +338,7 @@ Use indices for precise targeting or names for fuzzy matching.`,
       const successCount = results.filter((r: string) => r.startsWith('✅')).length;
       const errorCount = results.filter((r: string) => r.startsWith('❌')).length;
 
-      console.log(`[MCP:${name}] ✅ Complete:`, { successCount, errorCount });
+      console.warn(`[MCP:${name}] ✅ Complete:`, { successCount, errorCount });
 
       return successResult(results.join('\n'), {
         entityId,

@@ -30,12 +30,12 @@ import type {
  * Parse WORKFLOW.md content into WorkflowDef
  */
 export function parseWorkflow(content: string): WorkflowDef {
-  console.log('[Parser] Parsing workflow content, length:', content.length);
+  console.warn('[Parser] Parsing workflow content, length:', content.length);
 
   // Try YAML-block parsing first
   const yamlSteps = parseYamlBlocks(content);
   if (yamlSteps.length > 0) {
-    console.log('[Parser] Parsed', yamlSteps.length, 'steps from YAML blocks');
+    console.warn('[Parser] Parsed', yamlSteps.length, 'steps from YAML blocks');
     return { steps: yamlSteps };
   }
 

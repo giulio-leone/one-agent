@@ -123,8 +123,8 @@ interface RetryState {
  * Retry state is stored in artifacts._retryState[stepId] and persisted to DB
  */
 async function executeCallStep(step: CallStep, context: Context): Promise<void> {
-  console.log(`[Workflow] Calling agent: ${step.agentId}`);
-  console.log(`[Workflow] InputMap:`, JSON.stringify(step.inputMap, null, 2));
+  console.warn(`[Workflow] Calling agent: ${step.agentId}`);
+  console.warn(`[Workflow] InputMap:`, JSON.stringify(step.inputMap, null, 2));
 
   // Emit progress: starting agent
   const agentName = step.agentId.split('/').pop() ?? step.agentId;
@@ -132,7 +132,7 @@ async function executeCallStep(step: CallStep, context: Context): Promise<void> 
 
   // Resolve input from templates
   const resolvedInput = resolveInputMap(step.inputMap, context);
-  console.log(`[Workflow] Resolved Input:`, JSON.stringify(resolvedInput, null, 2));
+  console.warn(`[Workflow] Resolved Input:`, JSON.stringify(resolvedInput, null, 2));
 
   // Get retry config (default: no retry)
   const retryConfig = step.retry ?? { maxAttempts: 1, onFailure: 'abort' as const };
@@ -152,7 +152,7 @@ async function executeCallStep(step: CallStep, context: Context): Promise<void> 
   // Check for existing retry state (for resume after crash)
   let retryState = retryStates[stepId];
   if (retryState && retryState.status === 'succeeded') {
-    console.log(`[Workflow] Step ${stepId} already completed, skipping`);
+    console.warn(`[Workflow] Step ${stepId} already completed, skipping`);
     return;
   }
 
@@ -181,7 +181,7 @@ async function executeCallStep(step: CallStep, context: Context): Promise<void> 
     if (attempt > 1) {
       // Calculate delay with exponential backoff
       const delay = baseDelay * Math.pow(backoffMultiplier, attempt - 2);
-      console.log(`[Workflow] Retry attempt ${attempt}/${maxAttempts} after ${delay}ms delay`);
+      console.warn(`[Workflow] Retry attempt ${attempt}/${maxAttempts} after ${delay}ms delay`);
       await new Promise((resolve) => setTimeout(resolve, delay));
     }
 
@@ -260,7 +260,7 @@ async function executeCallStep(step: CallStep, context: Context): Promise<void> 
  * Execute a Parallel step - runs multiple branches concurrently
  */
 async function executeParallelStep(step: ParallelStep, context: Context): Promise<void> {
-  console.log(`[Workflow] Executing ${step.branches.length} parallel branches`);
+  console.warn(`[Workflow] Executing ${step.branches.length} parallel branches`);
 
   // Run all branches in parallel
   await Promise.all(
@@ -276,7 +276,7 @@ async function executeParallelStep(step: ParallelStep, context: Context): Promis
       // Note: Later branches may overwrite earlier ones for same keys
       Object.assign(context.artifacts, branchContext.artifacts);
 
-      console.log(`[Workflow] Branch ${branchIndex + 1} completed`);
+      console.warn(`[Workflow] Branch ${branchIndex + 1} completed`);
     })
   );
 }
@@ -301,7 +301,7 @@ async function executeLoopStep(step: LoopStep, context: Context): Promise<void> 
     return;
   }
 
-  console.log(`[Workflow] Looping over ${items.length} items (mode: ${step.mode})`);
+  console.warn(`[Workflow] Looping over ${items.length} items (mode: ${step.mode})`);
 
   const results: unknown[] = [];
 
@@ -362,7 +362,7 @@ async function executeLoopStep(step: LoopStep, context: Context): Promise<void> 
 async function executeConditionalStep(step: ConditionalStep, context: Context): Promise<void> {
   const conditionResult = evaluateCondition(step.condition, context);
 
-  console.log(`[Workflow] Condition "${step.condition}" evaluated to: ${conditionResult}`);
+  console.warn(`[Workflow] Condition "${step.condition}" evaluated to: ${conditionResult}`);
 
   const stepsToExecute = conditionResult ? step.then : (step.else ?? []);
 
@@ -381,7 +381,7 @@ async function executeConditionalStep(step: ConditionalStep, context: Context): 
  * - Data validation and normalization
  */
 async function executeTransformStep(step: TransformStep, context: Context): Promise<void> {
-  console.log(`[Workflow] Executing transform: ${step.transformId}`);
+  console.warn(`[Workflow] Executing transform: ${step.transformId}`);
 
   // Emit progress: starting transform
   emitProgress(context, step.transformId, 0, `🔧 Running ${step.transformId}...`, {
@@ -401,7 +401,7 @@ async function executeTransformStep(step: TransformStep, context: Context): Prom
 
   // Resolve input from templates
   const resolvedInput = resolveInputMap(step.inputMap, context);
-  console.log(
+  console.warn(
     `[Workflow] Transform Input:`,
     JSON.stringify(resolvedInput, null, 2).slice(0, 500) + '...'
   );
@@ -413,7 +413,7 @@ async function executeTransformStep(step: TransformStep, context: Context): Prom
     // Store result in artifacts
     setContextValue(context, `artifacts.${step.storeKey}`, result);
 
-    console.log(`[Workflow] Transform ${step.transformId} completed, stored in: ${step.storeKey}`);
+    console.warn(`[Workflow] Transform ${step.transformId} completed, stored in: ${step.storeKey}`);
 
     // Emit progress: completed
     emitProgress(context, step.transformId, 100, `✅ ${step.transformId} complete`, {

@@ -283,7 +283,7 @@ export function createPrismaAdapter(prisma: PrismaClient): PersistenceAdapter {
       // TODO: Implement memory summarization using LLM
       // For now, this is a no-op placeholder
 
-      console.log(
+      console.warn(
         `[Persistence] Memory summarization requested for user=${userId}, agent=${agentId}`
       );
 

@@ -6,14 +6,14 @@ try {
 
   const provider = createAIProvider();
 
-  console.log('Testing MiniMax provider initialization...\n');
+  console.warn('Testing MiniMax provider initialization...\n');
 
   // Test all MiniMax model variants
   let allPassed = true;
   for (const modelName of MINIMAX_MODELS) {
     const minimaxProvider = provider.getProvider(modelName);
     if (minimaxProvider) {
-      console.log(`✅ ${modelName}: routed successfully`);
+      console.warn(`✅ ${modelName}: routed successfully`);
     } else {
       console.error(`❌ ${modelName}: failed to route`);
       allPassed = false;
@@ -23,7 +23,7 @@ try {
   // Test case-insensitive routing
   const lowercaseTest = provider.getProvider('minimax-m2');
   if (lowercaseTest) {
-    console.log('✅ minimax-m2 (lowercase): routed successfully');
+    console.warn('✅ minimax-m2 (lowercase): routed successfully');
   } else {
     console.error('❌ minimax-m2 (lowercase): failed to route');
     allPassed = false;
@@ -33,16 +33,16 @@ try {
   try {
     // const openrouterTest = provider.getProvider('minimax/minimax-m2');
     // This should route to OpenRouter, not minimax
-    console.log('✅ minimax/minimax-m2 (OpenRouter format): correctly routes to openrouter');
+    console.warn('✅ minimax/minimax-m2 (OpenRouter format): correctly routes to openrouter');
   } catch {
-    console.log(
+    console.warn(
       '⚠️  minimax/minimax-m2 (OpenRouter): no openrouter provider configured (expected in test)'
     );
   }
 
-  console.log('\n' + '='.repeat(50));
+  console.warn('\n' + '='.repeat(50));
   if (allPassed) {
-    console.log('✅ All MiniMax routing tests passed!');
+    console.warn('✅ All MiniMax routing tests passed!');
     process.exit(0);
   } else {
     console.error('❌ Some MiniMax routing tests failed');

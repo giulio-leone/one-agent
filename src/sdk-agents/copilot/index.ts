@@ -64,7 +64,7 @@ export async function executeCopilotStream(
 ) {
   // 1. Detect domain from query
   const domain = await detectDomain(input.query, input.context);
-  console.log('[Copilot] Detected domain:', domain);
+  console.warn('[Copilot] Detected domain:', domain);
 
   // 2. Get model from admin settings
   const modelConfig = await getModelByTier(options.tier ?? 'balanced');

@@ -60,19 +60,19 @@ export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions =
       );
 
       if (!isRetryable) {
-        console.log(`[Retry] Non-retryable error, failing immediately:`, lastError.message);
+        console.warn(`[Retry] Non-retryable error, failing immediately:`, lastError.message);
         throw lastError;
       }
 
       if (attempt === config.maxAttempts) {
-        console.log(`[Retry] Max attempts (${config.maxAttempts}) reached, failing`);
+        console.warn(`[Retry] Max attempts (${config.maxAttempts}) reached, failing`);
         throw lastError;
       }
 
       // Calculate delay with exponential backoff
       const delay = config.delayMs * Math.pow(config.backoffMultiplier, attempt - 1);
 
-      console.log(
+      console.warn(
         `[Retry] Attempt ${attempt}/${config.maxAttempts} failed, retrying in ${delay}ms`
       );
 
@@ -128,7 +128,7 @@ export class CircuitBreaker {
         );
       }
       // Cooldown passed, try again (half-open state)
-      console.log('[CircuitBreaker] Cooldown passed, attempting recovery');
+      console.warn('[CircuitBreaker] Cooldown passed, attempting recovery');
     }
 
     try {

@@ -66,13 +66,13 @@ export function mcpToolsToAiSdk(mcpTools: MCPTool[]): Record<string, unknown> {
       description: mcpTool.description,
       inputSchema: schema,
       execute: async (args: unknown) => {
-        console.log(
+        console.warn(
           `[MCP Tool] Calling "${mcpTool.name}" with args:`,
           JSON.stringify(args, null, 2)
         );
         try {
           const result = await mcpTool.execute(args);
-          console.log(
+          console.warn(
             `[MCP Tool] "${mcpTool.name}" returned:`,
             typeof result === 'string'
               ? result.substring(0, 500) + (result.length > 500 ? '...' : '')
@@ -97,7 +97,7 @@ export async function disconnectAllMCPServers(): Promise<void> {
   for (const [name, connection] of connections) {
     try {
       await connection.transport.close();
-      console.log(`[MCP] Disconnected from server "${name}"`);
+      console.warn(`[MCP] Disconnected from server "${name}"`);
     } catch (error) {
       console.warn(`[MCP] Error disconnecting from "${name}":`, error);
     }
@@ -140,7 +140,7 @@ async function getOrCreateConnection(
 
   if (isHttpTransport) {
     // HTTP/SSE transport (e.g., Kiwi.com: https://mcp.kiwi.com)
-    console.log(`[MCP] Connecting to "${name}" via HTTP/SSE: ${config.url}`);
+    console.warn(`[MCP] Connecting to "${name}" via HTTP/SSE: ${config.url}`);
     transport = new SSEClientTransport(new URL(config.url!));
   } else {
     // Stdio transport (e.g., local MCP servers spawned via command)
@@ -156,7 +156,7 @@ async function getOrCreateConnection(
       }
     }
 
-    console.log(
+    console.warn(
       `[MCP] Connecting to "${name}" via stdio: ${config.command} ${config.args?.join(' ') ?? ''}`
     );
     transport = new StdioClientTransport({
@@ -191,7 +191,7 @@ async function getOrCreateConnection(
   const connection: MCPConnection = { client, transport, tools };
   connections.set(name, connection);
 
-  console.log(
+  console.warn(
     `[MCP] Connected to "${name}" (${isHttpTransport ? 'HTTP/SSE' : 'stdio'}), ${tools.length} tools available`
   );
 

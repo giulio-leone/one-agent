@@ -90,7 +90,7 @@ export async function executeWorker<TOutput = unknown>(
 
     // 3. Get model config respecting agent.json tier/model settings
     const modelConfig = await getModelForAgent(manifest);
-    console.log('[Worker] Using model:', modelConfig.model, 'provider:', modelConfig.provider);
+    console.warn('[Worker] Using model:', modelConfig.model, 'provider:', modelConfig.provider);
 
     // OAuth-based providers (gemini-cli) don't require API key
     const isOAuthProvider = OAUTH_PROVIDERS.includes(
@@ -127,12 +127,12 @@ export async function executeWorker<TOutput = unknown>(
         : undefined;
 
     if (providerOptions) {
-      console.log('[Worker] Using providerOptions:', JSON.stringify(providerOptions));
+      console.warn('[Worker] Using providerOptions:', JSON.stringify(providerOptions));
     }
 
     // Debug schema info
-    console.log('[Worker] Has output schema:', !!manifest.interface.output);
-    console.log('[Worker] System prompt length:', systemPrompt.length);
+    console.warn('[Worker] Has output schema:', !!manifest.interface.output);
+    console.warn('[Worker] System prompt length:', systemPrompt.length);
 
     // 4. Build user prompt from input
     const userPrompt = buildUserPrompt(input, manifest);
@@ -164,13 +164,13 @@ export async function executeWorker<TOutput = unknown>(
 
     if (executionMode === 'generate') {
       // Generate mode: full result at once (batch processing)
-      console.log('[Worker] Using generate mode');
+      console.warn('[Worker] Using generate mode');
       try {
         const result = await agent.generate({
           prompt: userPrompt,
         });
 
-        console.log('[Worker] Generate result:', {
+        console.warn('[Worker] Generate result:', {
           hasOutput: !!result.output,
           textLength: result.text?.length ?? 0,
           stepsCount: result.steps?.length ?? 0,
@@ -186,7 +186,7 @@ export async function executeWorker<TOutput = unknown>(
       }
     } else {
       // Stream mode: real-time streaming for UI
-      console.log('[Worker] Using stream mode');
+      console.warn('[Worker] Using stream mode');
       const streamResult = await agent.stream({
         prompt: userPrompt,
       });
@@ -215,7 +215,7 @@ export async function executeWorker<TOutput = unknown>(
 
         // Log progress for debugging
         if (stepCount % 5 === 0) {
-          console.log(`[Worker] Stream progress: step ${stepCount}`);
+          console.warn(`[Worker] Stream progress: step ${stepCount}`);
         }
       }
 
@@ -224,12 +224,12 @@ export async function executeWorker<TOutput = unknown>(
         throw new Error(`[Worker] ${manifest.id} did not emit required _progress updates`);
       }
 
-      console.log('[Worker] partialOutputStream complete, steps:', stepCount);
+      console.warn('[Worker] partialOutputStream complete, steps:', stepCount);
 
       // Get final output from the output promise
       try {
         finalOutput = (await output) as TOutput;
-        console.log('[Worker] Output promise resolved');
+        console.warn('[Worker] Output promise resolved');
       } catch (outputError) {
         // If output promise rejects, try using last partial
         console.warn('[Worker] Output promise rejected, using lastPartial:', outputError);
@@ -305,7 +305,7 @@ async function getModelForAgent(
   // If agent.json specifies an explicit model (not 'auto'), use it
   if (config.model && config.model !== 'auto') {
     const provider = config.provider || resolveProviderFromModelId(config.model);
-    console.log(`[Worker] Using explicit model from agent.json: ${config.model}`);
+    console.warn(`[Worker] Using explicit model from agent.json: ${config.model}`);
     return {
       model: config.model,
       provider,
@@ -316,7 +316,7 @@ async function getModelForAgent(
 
   // Otherwise use tier system (default: balanced)
   const tier = config.tier || 'balanced';
-  console.log(`[Worker] Using tier system: ${tier}`);
+  console.warn(`[Worker] Using tier system: ${tier}`);
   return await getModelByTier(tier);
 }
 
@@ -338,7 +338,7 @@ export async function buildSystemPrompt(manifest: AgentManifest, input?: unknown
 
   if (basePrompt) {
     parts.push(basePrompt);
-    console.log(`[Worker] Base system prompt loaded: ${basePrompt.length} chars`);
+    console.warn(`[Worker] Base system prompt loaded: ${basePrompt.length} chars`);
   }
 
   // Load and append skills (own + exposed child skills for managers)
@@ -346,13 +346,13 @@ export async function buildSystemPrompt(manifest: AgentManifest, input?: unknown
   const skillNames = Object.keys(skills);
 
   if (skillNames.length > 0) {
-    console.log(`[Worker] Skills loaded: ${skillNames.join(', ')}`);
+    console.warn(`[Worker] Skills loaded: ${skillNames.join(', ')}`);
     for (const [skillName, skillContent] of Object.entries(skills)) {
       parts.push(`\n\n## Skill: ${skillName}\n\n${skillContent}`);
-      console.log(`[Worker] Skill "${skillName}": ${skillContent.length} chars`);
+      console.warn(`[Worker] Skill "${skillName}": ${skillContent.length} chars`);
     }
   } else {
-    console.log(`[Worker] No skills found for ${manifest.id}`);
+    console.warn(`[Worker] No skills found for ${manifest.id}`);
   }
 
   return parts.join('\n');
@@ -391,7 +391,7 @@ async function loadToolsGracefully(
   const registryTools = getAgentTools(manifest.id);
   if (registryTools) {
     Object.assign(tools, registryTools);
-    console.log(`[Worker] Loaded ${Object.keys(registryTools).length} local tools from registry`);
+    console.warn(`[Worker] Loaded ${Object.keys(registryTools).length} local tools from registry`);
   }
 
   // Load MCP tools with graceful degradation
@@ -400,7 +400,7 @@ async function loadToolsGracefully(
       const mcpTools = await connectToMCPServers(manifest.mcpServers);
       const aiSdkTools = mcpToolsToAiSdk(mcpTools);
       Object.assign(tools, aiSdkTools);
-      console.log(`[Worker] Loaded ${Object.keys(aiSdkTools).length} MCP tools`);
+      console.warn(`[Worker] Loaded ${Object.keys(aiSdkTools).length} MCP tools`);
     } catch (err) {
       console.warn('[Worker] MCP connection failed, continuing without MCP tools:', err);
       // Agent continues to work with local tools only

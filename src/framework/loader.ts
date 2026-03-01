@@ -90,7 +90,7 @@ export function normalizeBundledPath(basePath: string, agentPath: string): strin
   if (monorepoRoot) {
     const candidate = join(monorepoRoot, relativePortion, agentPath);
     if (existsSync(join(candidate, 'agent.json'))) {
-      console.log(`[Loader] Resolved bundled path: ${basePath} -> ${candidate}`);
+      console.warn(`[Loader] Resolved bundled path: ${basePath} -> ${candidate}`);
       return candidate;
     }
   }
@@ -204,7 +204,7 @@ async function loadSchemaRef(
   // 1. Try registry first (preferred for bundled environments)
   const registrySchema = getSchema(ref);
   if (registrySchema) {
-    console.log(`[Loader] Schema loaded from registry: ${ref}`);
+    console.warn(`[Loader] Schema loaded from registry: ${ref}`);
     return registrySchema;
   }
 
@@ -216,7 +216,7 @@ async function loadSchemaRef(
 
     const derivedSchema = getSchema(registryKey);
     if (derivedSchema) {
-      console.log(`[Loader] Schema loaded from registry (derived): ${ref} → ${registryKey}`);
+      console.warn(`[Loader] Schema loaded from registry (derived): ${ref} → ${registryKey}`);
       return derivedSchema;
     }
   }
@@ -252,7 +252,7 @@ async function loadSchemaRef(
       throw new Error(`Schema "${schemaName}" not found in ${fullPath}`);
     }
 
-    console.log(`[Loader] Schema loaded via dynamic import: ${ref}`);
+    console.warn(`[Loader] Schema loaded via dynamic import: ${ref}`);
     return schema;
   } catch (error) {
     throw new Error(

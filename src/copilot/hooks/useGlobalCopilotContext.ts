@@ -117,13 +117,13 @@ export function useGlobalCopilotContext(options: UseGlobalCopilotContextOptions 
   // Sync route context
   const syncContext = useCallback(() => {
     if (debug) {
-      console.log('[GlobalCopilotContext] syncContext START', { pathname, params });
+      console.warn('[GlobalCopilotContext] syncContext START', { pathname, params });
     }
 
     const detected = detectRouteContext(pathname, params);
 
     if (debug) {
-      console.log(
+      console.warn(
         '[GlobalCopilotContext] Route detected:',
         detected,
         'Current domain:',
@@ -134,7 +134,7 @@ export function useGlobalCopilotContext(options: UseGlobalCopilotContextOptions 
     // If domain changed, update
     if (detected.domain !== currentDomain) {
       if (debug) {
-        console.log(
+        console.warn(
           '[GlobalCopilotContext] Domain CHANGED from',
           currentDomain,
           'to',
@@ -154,7 +154,7 @@ export function useGlobalCopilotContext(options: UseGlobalCopilotContextOptions 
       case 'workout':
         if (detected.programId && detected.programId !== currentWorkout?.programId) {
           if (debug) {
-            console.log(
+            console.warn(
               '[GlobalCopilotContext] Initializing workout context with programId:',
               detected.programId
             );
@@ -167,7 +167,7 @@ export function useGlobalCopilotContext(options: UseGlobalCopilotContextOptions 
       case 'nutrition':
         if (detected.planId && detected.planId !== currentNutrition?.planId) {
           if (debug) {
-            console.log(
+            console.warn(
               '[GlobalCopilotContext] Initializing nutrition context with planId:',
               detected.planId
             );
@@ -180,7 +180,7 @@ export function useGlobalCopilotContext(options: UseGlobalCopilotContextOptions 
       case 'oneagenda':
         if (detected.projectId && detected.projectId !== currentOneAgenda?.projectId) {
           if (debug) {
-            console.log(
+            console.warn(
               '[GlobalCopilotContext] Initializing oneagenda context with projectId:',
               detected.projectId
             );
@@ -191,7 +191,7 @@ export function useGlobalCopilotContext(options: UseGlobalCopilotContextOptions 
     }
 
     if (debug) {
-      console.log('[GlobalCopilotContext] syncContext END');
+      console.warn('[GlobalCopilotContext] syncContext END');
     }
   }, [
     pathname,

@@ -70,28 +70,28 @@ export async function execute<TOutput = unknown>(
 ): Promise<ExecutionResult<TOutput> | DurableExecutionResult<TOutput>> {
   const startTime = Date.now();
 
-  console.log('[Engine] execute() called (v4.0)');
-  console.log('[Engine] agentPath:', agentPath);
-  console.log('[Engine] basePath:', options.basePath);
-  console.log('[Engine] userId:', options.userId);
-  console.log('[Engine] resumeFromRunId:', options.resumeFromRunId);
-  console.log('[Engine] agentPath:', agentPath);
-  console.log('[Engine] basePath:', options.basePath);
-  console.log('[Engine] userId:', options.userId);
+  console.warn('[Engine] execute() called (v4.0)');
+  console.warn('[Engine] agentPath:', agentPath);
+  console.warn('[Engine] basePath:', options.basePath);
+  console.warn('[Engine] userId:', options.userId);
+  console.warn('[Engine] resumeFromRunId:', options.resumeFromRunId);
+  console.warn('[Engine] agentPath:', agentPath);
+  console.warn('[Engine] basePath:', options.basePath);
+  console.warn('[Engine] userId:', options.userId);
 
   try {
     // 1. Load agent manifest
-    console.log('[Engine] Step 1: Loading agent manifest...');
+    console.warn('[Engine] Step 1: Loading agent manifest...');
     const manifest = await loadAgentManifest(agentPath, options.basePath);
-    console.log('[Engine] Manifest loaded:', manifest.id, 'type:', manifest.type);
+    console.warn('[Engine] Manifest loaded:', manifest.id, 'type:', manifest.type);
 
     // 2. Validate input against schema
-    console.log('[Engine] Step 2: Validating input...');
+    console.warn('[Engine] Step 2: Validating input...');
     const validatedInput = manifest.interface.input.parse(input);
-    console.log('[Engine] Input validated successfully');
+    console.warn('[Engine] Input validated successfully');
 
     // 3. Create or use existing context
-    console.log('[Engine] Step 3: Creating context...');
+    console.warn('[Engine] Step 3: Creating context...');
     const context = options.context ?? createContext(validatedInput, options.userId);
     // Set basePath in context for nested agent resolution
     // Use provided basePath or derive from manifest path
@@ -100,10 +100,10 @@ export async function execute<TOutput = unknown>(
     if (options.onProgress) {
       context.onProgress = options.onProgress;
     }
-    console.log('[Engine] Context created:', context.executionId, 'basePath:', context.basePath);
+    console.warn('[Engine] Context created:', context.executionId, 'basePath:', context.basePath);
 
     // 4. Execute based on agent type (and execution mode)
-    console.log(
+    console.warn(
       '[Engine] Step 4: Executing node...',
       'executionMode:',
       manifest.config.executionMode
@@ -115,7 +115,7 @@ export async function execute<TOutput = unknown>(
       options.basePath,
       options.resumeFromRunId
     );
-    console.log('[Engine] Node execution complete, success:', result.success);
+    console.warn('[Engine] Node execution complete, success:', result.success);
 
     return result;
   } catch (error) {
@@ -185,13 +185,13 @@ export async function executeNode<TOutput = unknown>(
 
     if (isManager(manifest)) {
       // Manager mode: execute workflow and synthesize with LLM
-      console.log(`[Engine] Executing Manager: ${manifest.id}`);
+      console.warn(`[Engine] Executing Manager: ${manifest.id}`);
 
       // CRITICAL: Update basePath to this agent's directory so nested workers
       // are resolved relative to the parent agent (not the global basePath)
       const previousBasePath = context.basePath;
       context.basePath = manifest.path;
-      console.log(`[Engine] Updated context.basePath for workflow: ${context.basePath}`);
+      console.warn(`[Engine] Updated context.basePath for workflow: ${context.basePath}`);
 
       const workflowContext = await executeWorkflow(manifest.workflow!, validatedInput, context);
 
@@ -201,7 +201,7 @@ export async function executeNode<TOutput = unknown>(
       // Check for skipSynthesis config - bypass AI and use artifact directly
       if (manifest.config.skipSynthesis) {
         const outputKey = manifest.config.outputArtifact || '_output';
-        console.log(`[Engine] skipSynthesis=true, using artifact: ${outputKey}`);
+        console.warn(`[Engine] skipSynthesis=true, using artifact: ${outputKey}`);
 
         // Support dot notation for nested access (e.g., "finalProgram.program")
         const output = getNestedArtifact(workflowContext.artifacts, outputKey);
@@ -230,7 +230,7 @@ export async function executeNode<TOutput = unknown>(
       }
     } else {
       // Worker mode: direct LLM execution
-      console.log(`[Engine] Executing Worker: ${manifest.id}`);
+      console.warn(`[Engine] Executing Worker: ${manifest.id}`);
 
       result = await executeWorker<TOutput>(manifest, validatedInput, context);
     }

@@ -46,7 +46,7 @@ export function registerSchemas(schemas: Record<string, z.ZodSchema>): void {
     schemaRegistry.set(key, schema);
   }
 
-  console.log(
+  console.warn(
     `[Registry] Registered ${Object.keys(schemas).length} schemas:`,
     Object.keys(schemas)
   );
@@ -104,7 +104,7 @@ export function registerTools(tools: Record<string, Record<string, ToolDefinitio
     }
   }
 
-  console.log(`[Registry] Registered tools for agents:`, Object.keys(tools));
+  console.warn(`[Registry] Registered tools for agents:`, Object.keys(tools));
 }
 
 /**
@@ -158,7 +158,7 @@ export function registerTransforms(transforms: Record<string, TransformFn>): voi
     transformRegistry.set(key, fn);
   }
 
-  console.log(
+  console.warn(
     `[Registry] Registered ${Object.keys(transforms).length} transforms:`,
     Object.keys(transforms)
   );
