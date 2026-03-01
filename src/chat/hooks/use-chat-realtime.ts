@@ -1,3 +1,4 @@
+'use no memo';
 /**
  * useChatRealtime Hook
  *
