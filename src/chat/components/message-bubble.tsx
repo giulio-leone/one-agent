@@ -319,6 +319,7 @@ export const MessageBubble = memo(function MessageBubble({
         aria-hidden="true"
       >
         {avatar?.[isUser ? 'user' : 'assistant'] ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={avatar[isUser ? 'user' : 'assistant']}
             alt=""

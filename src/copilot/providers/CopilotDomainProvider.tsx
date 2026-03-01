@@ -148,6 +148,7 @@ export function CopilotDomainProvider({
       clearContext();
       initializedRef.current = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-init when specific IDs change, not when parent objects change identity
   }, [
     domain,
     workoutData?.programId,

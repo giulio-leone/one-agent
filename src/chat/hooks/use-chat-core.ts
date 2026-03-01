@@ -198,7 +198,7 @@ export function useChatCore(options: UseChatCoreOptions = {}): UseChatCoreResult
   // Usiamo requestBodyRef per leggere il body corrente nel fetch invece di
   // ricreare il transport ogni volta che il body cambia
   const transport = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+     
     const { DefaultChatTransport, getOriginalFetch } = require('ai');
 
     const baseFetch: typeof fetch = getOriginalFetch?.() ?? fetch;
