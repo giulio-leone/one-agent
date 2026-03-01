@@ -75,13 +75,13 @@
  * ```
  */
 
-// Server-safe exports only.
-// Client-only hooks/components/providers are available via `@giulio-leone/lib-chat-core/client`.
+// Server-only exports. These include AI SDK providers and database services.
+// Client hooks/components are available via `@giulio-leone/one-agent/chat/client`.
 export * from './types';
 export * from './utils';
 export * from './conversation.service';
 
-// Chat agent & hooks
+// Chat agent (imports @ai-sdk/* providers — server-only)
 export * from './agent';
 export {
   type AISDKMessagePart,
@@ -93,4 +93,3 @@ export {
   type ChatRequestBody,
   type ChatResponseHeaders,
 } from './types/chat-agent';
-export * from './hooks/use-chat';
